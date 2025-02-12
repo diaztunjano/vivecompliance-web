@@ -12,9 +12,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { buttonVariants } from "./ui/button";
-import { Menu } from "lucide-react";
+import { Menu, BookOpenIcon } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons";
 
@@ -25,20 +24,20 @@ interface RouteProps {
 
 const routeList: RouteProps[] = [
   {
-    href: "#features",
-    label: "Features",
+    href: "#servicios",
+    label: "Servicios",
   },
   {
-    href: "#testimonials",
-    label: "Testimonials",
+    href: "#publicaciones",
+    label: "Publicaciones",
   },
   {
-    href: "#pricing",
-    label: "Pricing",
+    href: "#nosotros",
+    label: "Nosotros",
   },
   {
-    href: "#faq",
-    label: "FAQ",
+    href: "#contacto",
+    label: "Contacto",
   },
 ];
 
@@ -55,7 +54,7 @@ export const Navbar = () => {
               className="ml-2 font-bold text-xl flex"
             >
               <LogoIcon />
-              ShadcnUI/React
+              Vive Compliance
             </a>
           </NavigationMenuItem>
 
@@ -79,7 +78,7 @@ export const Navbar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
-                    Shadcn/React
+                    Vive Compliance
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">
@@ -102,8 +101,8 @@ export const Navbar = () => {
                       variant: "secondary",
                     })}`}
                   >
-                    <GitHubLogoIcon className="mr-2 w-5 h-5" />
-                    Github
+                    <BookOpenIcon className="mr-2 w-5 h-5" />
+                    Publicaciones
                   </a>
                 </nav>
               </SheetContent>
@@ -133,8 +132,8 @@ export const Navbar = () => {
               target="_blank"
               className={`border ${buttonVariants({ variant: "secondary" })}`}
             >
-              <GitHubLogoIcon className="mr-2 w-5 h-5" />
-              Github
+              <BookOpenIcon className="mr-2 w-5 h-5" />
+              Publicaciones
             </a>
 
             <ModeToggle />
