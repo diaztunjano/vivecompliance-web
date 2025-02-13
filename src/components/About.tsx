@@ -20,7 +20,7 @@ export const About = () => {
                 <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
                   Sobre{" "}
                 </span>
-                Nosotros
+                nosotros
               </h2>
               <p className="text-lg text-muted-foreground">
                 VIVE COMPLIANCE es el espacio esencial para los profesionales del Compliance en América Latina,

@@ -12,6 +12,7 @@ import { Services } from "./components/Services";
 import { Sponsors } from "./components/Sponsors";
 import { Team } from "./components/Team";
 import { Testimonials } from "./components/Testimonials";
+import { TimelineDemo } from "./components/TimelineDemo";
 import "./App.css";
 
 function App() {
@@ -20,9 +21,10 @@ function App() {
       <Navbar />
       <Hero />
       <Sponsors />
+      <TimelineDemo />
       <About />
-      <HowItWorks />
       <Features />
+      <HowItWorks />
       <Services />
       <Cta />
       <Testimonials />

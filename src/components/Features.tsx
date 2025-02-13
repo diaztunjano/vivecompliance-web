@@ -10,6 +10,7 @@ import image from "../assets/growth.png";
 import image3 from "../assets/reflecting.png";
 import image4 from "../assets/looking-ahead.png";
 
+
 interface FeatureProps {
   title: string;
   description: string;
@@ -18,35 +19,45 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    title: "Responsive Design",
+    title: "Prevención de BC/FT",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Diseño e implementación de sistemas de gestión de riesgos adaptados a las normativas vigentes, asegurando el cumplimiento efectivo en la prevención de Blanqueo de Capitales y Financiamiento del Terrorismo.",
     image: image4,
   },
   {
-    title: "Intuitive user interface",
+    title: "Certificaciones ISO",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Implementación y auditoría de normas internacionales ISO 37001 (Antisoborno), 9001 (Calidad), 37301 (Cumplimiento), 31000 (Riesgos) y 22301 (Continuidad de Negocio).",
     image: image3,
   },
   {
-    title: "AI-Powered insights",
+    title: "Debida Diligencia",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Formularios inteligentes y software especializado para la verificación de datos, elaboración de reportes regulatorios y gestión efectiva del proceso 'Conoce a Tu Cliente'.",
     image: image,
+  },
+  {
+    title: "Capacitación y Formación",
+    description:
+      "Cursos y talleres especializados en legislación, tipologías BC/FT, gestión de riesgos y controles internos, diseñados para mantener a tu equipo actualizado y preparado.",
+    image: image3,
+  },
+  {
+    title: "Canal de Denuncias",
+    description:
+      "Sistema anónimo y accesible para reportar irregularidades y prevenir conductas no éticas, garantizando la confidencialidad y seguridad en el proceso de denuncia.",
+    image: image3,
   },
 ];
 
 const featureList: string[] = [
-  "Dark/Light theme",
-  "Reviews",
-  "Features",
-  "Pricing",
-  "Contact form",
-  "Our team",
-  "Responsive design",
-  "Newsletter",
-  "Minimalist",
+  "Canal de Denuncias",
+  "Gestión de Riesgos",
+  "Auditoría ISO",
+  "Capacitación",
+  "Debida Diligencia",
+  "Prevención BC/FT",
+  "Cumplimiento Normativo",
 ];
 
 export const Features = () => {
@@ -56,9 +67,9 @@ export const Features = () => {
       className="container py-24 sm:py-32 space-y-8"
     >
       <h2 className="text-3xl lg:text-4xl font-bold md:text-center">
-        Many{" "}
+        Nuestros{" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Great Features
+          Servicios
         </span>
       </h2>
 
@@ -79,15 +90,17 @@ export const Features = () => {
         {features.map(({ title, description, image }: FeatureProps) => (
           <Card key={title}>
             <CardHeader>
-              <CardTitle>{title}</CardTitle>
+              <CardTitle className="text-xl font-bold">{title}</CardTitle>
             </CardHeader>
 
-            <CardContent>{description}</CardContent>
+            <CardContent>
+              <p className="text-muted-foreground">{description}</p>
+            </CardContent>
 
             <CardFooter>
               <img
                 src={image}
-                alt="About feature"
+                alt={`Ilustración de ${title}`}
                 className="w-[200px] lg:w-[300px] mx-auto"
               />
             </CardFooter>
