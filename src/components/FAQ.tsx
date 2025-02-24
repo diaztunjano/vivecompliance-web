@@ -13,35 +13,35 @@ interface FAQProps {
 
 const FAQList: FAQProps[] = [
   {
-    question: "Is this template free?",
-    answer: "Yes. It is a free ChadcnUI template.",
+    question: "¿Qué es el Compliance y por qué es importante para mi empresa?",
+    answer: "El Compliance es el conjunto de procedimientos y buenas prácticas que adoptan las organizaciones para identificar y clasificar los riesgos operativos y legales a los que se enfrentan y establecer mecanismos internos de prevención, gestión, control y reacción. Es fundamental para proteger la reputación de su empresa, evitar sanciones, y crear una cultura organizacional basada en la ética y la transparencia.",
     value: "item-1",
   },
   {
-    question: "Lorem ipsum dolor sit amet consectetur adipisicing elit?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam? Consectetur sapiente iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+    question: "¿Qué servicios ofrece Vive Compliance para la prevención de Blanqueo de Capitales?",
+    answer: "Ofrecemos un servicio integral que incluye: diseño e implementación de sistemas de gestión de riesgos adaptados a normativas vigentes, programas de debida diligencia, formularios inteligentes para 'Conoce a Tu Cliente', capacitación especializada en tipologías BC/FT, y asesoría continua en el cumplimiento de requisitos regulatorios.",
     value: "item-2",
   },
   {
-    question:
-      "Lorem ipsum dolor sit amet  Consectetur natus dolores minus quibusdam?",
-    answer:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore qui nostrum reiciendis veritatis necessitatibus maxime quis ipsa vitae cumque quo?",
+    question: "¿Qué certificaciones ISO pueden implementar en mi organización?",
+    answer: "Somos expertos en la implementación y auditoría de las principales normas internacionales ISO: ISO 37001:2016 (Gestión Antisoborno), ISO 9001:2015 (Gestión de Calidad), ISO 37301:2021 (Gestión de Cumplimiento), ISO 31000:2018 (Gestión de Riesgos), e ISO 22301:2019 (Continuidad de Negocio). Nuestro equipo le guiará en todo el proceso de certificación.",
     value: "item-3",
   },
   {
-    question: "Lorem ipsum dolor sit amet, consectetur adipisicing elit?",
-    answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    question: "¿Cómo funciona el Canal de Denuncias y qué beneficios ofrece?",
+    answer: "Nuestro Canal de Denuncias es una plataforma segura y anónima que permite a empleados y stakeholders reportar comportamientos no éticos o irregularidades. El sistema garantiza confidencialidad, facilita la detección temprana de riesgos, y demuestra el compromiso de su organización con la transparencia y la integridad corporativa.",
     value: "item-4",
   },
   {
-    question:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur natus?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam? Consectetur sapiente iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+    question: "¿Qué metodología utilizan para la capacitación en compliance?",
+    answer: "Nuestra metodología de capacitación combina teoría y práctica, incluyendo: cursos especializados en legislación vigente, talleres prácticos sobre tipologías BC/FT, formación en gestión de riesgos y controles internos, y certificaciones profesionales. Los programas son personalizados según las necesidades específicas de cada organización y sector.",
     value: "item-5",
   },
+  {
+    question: "¿Cómo ayudan a las empresas a cumplir con las regulaciones internacionales?",
+    answer: "Proporcionamos asesoría integral en el cumplimiento de normativas internacionales, realizamos diagnósticos personalizados de riesgos, implementamos sistemas de gestión adaptados a estándares globales, y ofrecemos soporte continuo para mantener actualizados los procesos según las últimas exigencias regulatorias.",
+    value: "item-6",
+  }
 ];
 
 export const FAQ = () => {
@@ -51,9 +51,9 @@ export const FAQ = () => {
       className="container py-24 sm:py-32"
     >
       <h2 className="text-3xl md:text-4xl font-bold mb-4">
-        Frequently Asked{" "}
+        Preguntas{" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Questions
+          Frecuentes
         </span>
       </h2>
 
@@ -77,13 +77,13 @@ export const FAQ = () => {
       </Accordion>
 
       <h3 className="font-medium mt-4">
-        Still have questions?{" "}
+        ¿Tienes más preguntas?{" "}
         <a
           rel="noreferrer noopener"
-          href="#"
+          href="#contact"
           className="text-primary transition-all border-primary hover:border-b-2"
         >
-          Contact us
+          Contáctanos
         </a>
       </h3>
     </section>
