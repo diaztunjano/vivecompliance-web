@@ -4,32 +4,32 @@ export const Cta = () => {
   return (
     <section
       id="cta"
-      className="bg-muted/50 py-16 my-24 sm:my-32"
+      className="bg-muted/50 py-20 my-24 sm:my-32 relative overflow-hidden"
     >
-      <div className="container lg:grid lg:grid-cols-2 place-items-center">
-        <div className="lg:col-start-1">
-          <h2 className="text-3xl md:text-4xl font-bold ">
-            All Your
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+      <div className="container lg:grid lg:grid-cols-2 place-items-center gap-12 relative">
+        <div className="lg:col-start-1 max-w-[600px]">
+          <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+            Te gustaría{" "}
             <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-              {" "}
-              Ideas & Concepts{" "}
+              escribir con nosotros?
             </span>
-            In One Interface
           </h2>
-          <p className="text-muted-foreground text-xl mt-4 mb-8 lg:mb-0">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque,
-            beatae. Ipsa tempore ipsum iste quibusdam illum ducimus eos. Quasi,
-            sed!
+          <p className="text-muted-foreground text-xl mt-6 mb-8 lg:mb-0 leading-relaxed">
+            ¿Eres un experto en compliance? Únete a nuestra red de colaboradores y comparte tus insights con más de 5000 profesionales. Tu experiencia puede transformar la cultura ética empresarial en Latinoamérica.
           </p>
         </div>
 
-        <div className="space-y-4 lg:col-start-2">
-          <Button className="w-full md:mr-4 md:w-auto">Request a Demo</Button>
+        <div className="space-y-4 lg:space-y-0 lg:flex lg:gap-4 lg:col-start-2">
+          <Button size="lg" className="w-full md:w-auto text-base font-medium">
+            Publicar Artículo
+          </Button>
           <Button
             variant="outline"
-            className="w-full md:w-auto"
+            size="lg"
+            className="w-full md:w-auto text-base font-medium"
           >
-            View all features
+            Explorar Ediciones
           </Button>
         </div>
       </div>

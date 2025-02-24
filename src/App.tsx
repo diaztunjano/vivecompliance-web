@@ -24,9 +24,9 @@ function App() {
       <About />
       <Features />
       <HowItWorks />
+      <Testimonials />
       <Services />
       <Cta />
-      <Testimonials />
       <Team />
       <Newsletter />
       <FAQ />
