@@ -19,7 +19,7 @@ export const Newsletter = () => {
           </span>
         </h3>
         <p className="text-xl text-muted-foreground text-center mt-4 mb-8">
-          Recibe noticias y actualizaciones de Vive Compliance.
+          Recibe nuestras publicaciones y actualizaciones de Vive Compliance.
         </p>
 
         <form

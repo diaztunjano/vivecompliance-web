@@ -69,6 +69,9 @@ export const Testimonials = () => {
         </p>
       </div>
 
+      {/* Shadow effect */}
+      <div className="shadow"></div>
+
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {testimonials.map(
           ({ image, name, userName, comment }: TestimonialProps) => (

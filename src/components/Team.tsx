@@ -39,14 +39,6 @@ const teamList: TeamProps[] = [
         name: "Linkedin",
         url: "https://www.linkedin.com/in/leopoldo-miranda/",
       },
-      {
-        name: "Facebook",
-        url: "https://www.facebook.com/",
-      },
-      {
-        name: "Instagram",
-        url: "https://www.instagram.com/",
-      },
     ],
   },
   {
@@ -65,14 +57,6 @@ const teamList: TeamProps[] = [
         name: "Linkedin",
         url: "https://www.linkedin.com/in/leopoldo-miranda/",
       },
-      {
-        name: "Facebook",
-        url: "https://www.facebook.com/",
-      },
-      {
-        name: "Instagram",
-        url: "https://www.instagram.com/",
-      },
     ],
   },
   {
@@ -90,10 +74,6 @@ const teamList: TeamProps[] = [
       {
         name: "Linkedin",
         url: "https://www.linkedin.com/in/leopoldo-miranda/",
-      },
-      {
-        name: "Instagram",
-        url: "https://www.instagram.com/",
       },
     ],
   },
