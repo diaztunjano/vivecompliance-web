@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface TimelineEntry {
   title: string;
+  subtitle: string;
   content: React.ReactNode;
 }
 
@@ -56,14 +57,13 @@ export const FeaturesTimeline = ({ data }: { data: TimelineEntry[] }) => {
           className="text-center space-y-8 mb-16 sm:mb-20"
         >
           <motion.h2
-            className="flex flex-col items-center justify-center space-y-2 sm:space-y-3"
+            className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3"
           >
             <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
               Nuestros
             </span>
-            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text tracking-tight relative">
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text tracking-tight">
               Servicios
-              <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary/40 to-primary/80 rounded-full transform scale-x-[0.7] mx-auto w-12 sm:w-16 lg:w-20" />
             </span>
           </motion.h2>
           <motion.p
@@ -91,15 +91,25 @@ export const FeaturesTimeline = ({ data }: { data: TimelineEntry[] }) => {
                   <div className="h-12 absolute left-3 md:left-3 w-12 rounded-full bg-background flex items-center justify-center shadow-lg">
                     <div className="h-5 w-5 rounded-full bg-primary border-2 border-primary/20 transition-all duration-300" />
                   </div>
-                  <h3 className="hidden md:block text-2xl md:text-5xl font-bold md:pl-24 leading-relaxed pb-1 bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text">
-                    {item.title}
-                  </h3>
+                  <div className="hidden md:block md:pl-24">
+                    <h3 className="text-2xl md:text-5xl font-bold leading-relaxed pb-1 bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text">
+                      {item.title}
+                    </h3>
+                    <p className="text-neutral-800 dark:text-neutral-200 text-base md:text-lg font-medium tracking-wide mt-2">
+                      {item.subtitle}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="relative pl-20 pr-4 md:pl-4 w-full">
-                  <h3 className="md:hidden block text-3xl mb-6 text-left font-bold leading-relaxed pb-1 bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text">
-                    {item.title}
-                  </h3>
+                  <div className="md:hidden block mb-6 text-left">
+                    <h3 className="text-3xl font-bold leading-relaxed pb-1 bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text">
+                      {item.title}
+                    </h3>
+                    <p className="text-neutral-800 dark:text-neutral-200 text-base md:text-lg font-medium tracking-wide mt-2">
+                      {item.subtitle}
+                    </p>
+                  </div>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
