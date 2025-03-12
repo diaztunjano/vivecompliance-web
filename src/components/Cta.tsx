@@ -10,9 +10,9 @@ export const Cta = () => {
       <div className="container lg:grid lg:grid-cols-2 place-items-center gap-12 relative">
         <div className="lg:col-start-1 max-w-[600px]">
           <h2 className="text-3xl md:text-4xl font-bold leading-tight">
-            Te gustaría{" "}
+            ¿Te gustaría ser parte de nuestra{" "}
             <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-              escribir con nosotros?
+              red de escritores expertos?
             </span>
           </h2>
           <p className="text-muted-foreground text-xl mt-6 mb-8 lg:mb-0 leading-relaxed">
