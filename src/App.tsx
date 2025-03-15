@@ -5,9 +5,9 @@ import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
 // import { HowItWorks } from "./components/HowItWorks";
 import { Navbar } from "./components/Navbar";
+import { ViveComplianceMagazine } from "./components/ViveComplianceMaganize";
 import { Newsletter } from "./components/Newsletter";
 import { ScrollToTop } from "./components/ScrollToTop";
-import { Services } from "./components/Services";
 import { Sponsors } from "./components/Sponsors";
 import { Team } from "./components/Team";
 import { Testimonials } from "./components/Testimonials";
@@ -25,7 +25,7 @@ function App() {
       <Features />
       {/* <HowItWorks /> */}
       <Testimonials />
-      <Services />
+      <ViveComplianceMagazine />
       <Cta />
       <Team />
       <Newsletter />

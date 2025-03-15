@@ -142,7 +142,7 @@ export function Features() {
   ];
 
   return (
-    <section id="timeline" className="w-full">
+    <section id="servicios" className="w-full">
       <FeaturesTimeline data={data} />
     </section>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -28,6 +28,10 @@ const routeList: RouteProps[] = [
     label: "Servicios",
   },
   {
+    href: "#magazine",
+    label: "Magazine",
+  },
+  {
     href: "#nosotros",
     label: "Nosotros",
   },
@@ -39,6 +43,20 @@ const routeList: RouteProps[] = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleScroll = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, []);
+
   return (
     <header className="sticky border-b-[1px] top-0 z-50 w-full bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
@@ -83,7 +101,10 @@ export const Navbar = () => {
                       rel="noreferrer noopener"
                       key={label}
                       href={href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => {
+                        setIsOpen(false);
+                        handleScroll(e, href);
+                      }}
                       className={buttonVariants({ variant: "ghost" })}
                     >
                       {label}
@@ -112,6 +133,7 @@ export const Navbar = () => {
                 rel="noreferrer noopener"
                 href={route.href}
                 key={i}
+                onClick={(e) => handleScroll(e, route.href)}
                 className={`text-[17px] ${buttonVariants({
                   variant: "ghost",
                 })}`}
@@ -124,8 +146,8 @@ export const Navbar = () => {
           <div className="hidden md:flex gap-2">
             <a
               rel="noreferrer noopener"
-              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-              target="_blank"
+              href="#magazine"
+              onClick={(e) => handleScroll(e, "#magazine")}
               className={`border ${buttonVariants({ variant: "secondary" })}`}
             >
               <BookOpenIcon className="mr-2 w-5 h-5" />

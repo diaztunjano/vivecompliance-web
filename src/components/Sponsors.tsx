@@ -23,12 +23,7 @@ const sponsors: SponsorProps[] = [
     image: "/sponsors_logos/42.png",
     className: "h-12 sm:h-14 md:h-16 lg:h-20 w-auto object-contain",
   },
-  {
-    id: "43",
-    description: "Sponsor 43",
-    image: "/sponsors_logos/43.png",
-    className: "h-12 sm:h-14 md:h-16 lg:h-20 w-auto object-contain",
-  },
+
   {
     id: "44",
     description: "Sponsor 44",
@@ -55,9 +50,9 @@ const sponsors: SponsorProps[] = [
   },
   {
     id: "48",
-    description: "Sponsor 48",
+    description: "UBICA",
     image: "/sponsors_logos/48.png",
-    className: "h-12 sm:h-14 md:h-16 lg:h-20 w-auto object-contain",
+    className: "h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain",
   },
   {
     id: "49",
@@ -109,8 +104,14 @@ const sponsors: SponsorProps[] = [
   },
   {
     id: "57",
-    description: "Sponsor 57",
+    description: "Alpha",
     image: "/sponsors_logos/57.png",
+    className: "h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain",
+  },
+  {
+    id: "58",
+    description: "Sponsor 58",
+    image: "/sponsors_logos/58.png",
     className: "h-12 sm:h-14 md:h-16 lg:h-20 w-auto object-contain",
   },
 ];

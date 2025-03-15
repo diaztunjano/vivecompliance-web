@@ -29,9 +29,9 @@ const serviceList: ServiceProps[] = [
   },
 ];
 
-export const Services = () => {
+export const ViveComplianceMagazine = () => {
   return (
-    <section className="container py-24 sm:py-32">
+    <section id="magazine"  className="container py-24 sm:py-32">
       <div className="grid lg:grid-cols-[1fr,1fr] gap-12 place-items-center">
         <div>
           <div className="max-w-[500px]">
@@ -73,7 +73,7 @@ export const Services = () => {
           <img
             src={cubeLeg}
             className="w-[300px] md:w-[500px] lg:w-[600px] object-contain relative z-10"
-            alt="About services"
+            alt="Acerca de Vive Compliance Magazine"
           />
         </div>
       </div>

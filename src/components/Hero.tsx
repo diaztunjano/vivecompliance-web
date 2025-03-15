@@ -1,49 +1,65 @@
 import { Button } from "./ui/button";
-import { buttonVariants } from "./ui/button";
-import { BookOpenIcon } from "lucide-react";
+import { ArrowRightIcon, PhoneIcon } from "@heroicons/react/24/outline";
+import { Typewriter } from "./ui/typewriter";
+
 export const Hero = () => {
+  const titles = ["reputación", "confianza", "valor", "seguridad", "excelencia"];
+
   return (
-    <section className="container grid lg:grid-cols-2 place-items-center py-20 md:py-32 gap-10">
-      <div className="text-center lg:text-start space-y-6">
-        <main className="text-5xl md:text-6xl font-bold">
-          <h1 className="inline">
-            Transformamos{" "}
-            <span className="inline bg-gradient-to-r from-[#00306b] to-[#0055bb] text-transparent bg-clip-text">
-              cumplimiento
-            </span>{" "}
-            en{" "}
-            <span className="inline bg-gradient-to-r from-[#FF9447] via-[#FF7A1F] to-[#FF6B00] text-transparent bg-clip-text">
-              reputación
-            </span>
-          </h1>
-        </main>
+    <div className="w-full">
+      <div className="container mx-auto">
+        <div className="flex gap-8 py-20 lg:py-40 items-center justify-center flex-col">
+          <div>
+            <Button variant="secondary" size="sm" className="gap-2">
+              Lee nuestro último artículo <ArrowRightIcon className="w-4 h-4" />
+            </Button>
+          </div>
 
-        <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
-          Soluciones integrales en cumplimiento normativo, reduciendo al máximo
-          los riesgos operativos, legales y reputacionales que puedan surgir en
-          las actividades empresariales
-        </p>
+          <div className="flex gap-4 flex-col items-center max-w-4xl mx-auto">
+            <div className="flex flex-col items-center">
+              <h1 className="text-5xl md:text-6xl tracking-tighter text-center font-bold leading-[1.1]">
+                Transformamos{" "}
+                <span className="bg-gradient-to-r from-[#00306b] to-[#0055bb] text-transparent bg-clip-text">
+                  cumplimiento
+                </span>
+              </h1>
+              <div className="flex items-center justify-center text-5xl md:text-6xl tracking-tighter font-bold w-full leading-[1.1] -mt-2">
+                <div className="flex items-center justify-center">
+                  <span className="bg-gradient-to-r from-[#00306b] to-[#0055bb] text-transparent bg-clip-text">
+                    en
+                  </span>
+                  <div className="ml-3">
+                    <Typewriter
+                      text={titles}
+                      className="bg-gradient-to-r from-[#FF9447] via-[#FF7A1F] to-[#FF6B00] text-transparent bg-clip-text"
+                      speed={100}
+                      deleteSpeed={50}
+                      delay={1500}
+                      loop={true}
+                      cursor="|"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <p className="text-xl text-muted-foreground max-w-2xl text-center mx-auto mt-6">
+              Soluciones integrales en cumplimiento normativo, reduciendo al máximo
+              los riesgos operativos, legales y reputacionales que puedan surgir en
+              las actividades empresariales
+            </p>
+          </div>
 
-        <div className="space-y-4 md:space-y-0 md:space-x-4">
-          <Button className="w-full md:w-1/3">Contáctanos</Button>
-
-          <a
-            rel="noreferrer noopener"
-            href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-            target="_blank"
-            className={`w-full md:w-1/3 ${buttonVariants({
-              variant: "outline",
-            })}`}
-          >
-            Publicaciones
-            <BookOpenIcon className="ml-2 w-5 h-5" />
-          </a>
+          <div className="flex flex-col md:flex-row gap-3">
+            <Button size="lg" className="gap-2" variant="outline">
+              Contáctanos <PhoneIcon className="w-4 h-4" />
+            </Button>
+            <Button size="lg" className="gap-2">
+              Publicaciones <ArrowRightIcon className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </div>
-
-
-
-    </section>
+    </div>
   );
 };
