@@ -3,7 +3,7 @@ import { Cta } from "./components/Cta";
 import { FAQ } from "./components/FAQ";
 import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
-// import { HowItWorks } from "./components/HowItWorks";
+import { HowItWorks } from "./components/HowItWorks";
 import { Navbar } from "./components/Navbar";
 import { ViveComplianceMagazine } from "./components/ViveComplianceMaganize";
 import { Newsletter } from "./components/Newsletter";
@@ -23,9 +23,9 @@ function App() {
       <Sponsors />
       <About />
       <Features />
-      {/* <HowItWorks /> */}
       <Testimonials />
       <ViveComplianceMagazine />
+      <HowItWorks />
       <Cta />
       <Team />
       <Newsletter />

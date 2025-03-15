@@ -22,20 +22,20 @@ type SocialNetworkType = "Linkedin";
 
 // Constants
 const CARD_STYLES = {
-  wrapper: "group rounded-xl bg-neutral-50 dark:bg-neutral-900/90 p-5 sm:p-6 shadow-md hover:shadow-[0_0_15px_-5px_rgba(255,149,77,0.2)] transition-all duration-300 border border-neutral-200/50 dark:border-neutral-800 relative flex flex-col justify-between",
+  wrapper: "group rounded-2xl bg-white dark:bg-neutral-900/90 p-5 shadow-sm hover:shadow-md transition-all duration-300 border border-neutral-100 dark:border-neutral-800 relative flex flex-col justify-between h-full",
   avatar: {
-    container: "mb-4 flex justify-center",
-    image: "w-32 h-32 rounded-full overflow-hidden border-[3px] border-primary/10 shadow-lg group-hover:scale-105 transition-transform duration-500 bg-white dark:bg-neutral-900"
+    container: "mb-3 flex justify-center",
+    image: "w-24 h-24 rounded-full overflow-hidden border-[2px] border-neutral-100 shadow-sm group-hover:scale-102 transition-transform duration-500 bg-white dark:bg-neutral-900"
   },
   content: {
-    title: "text-2xl font-bold bg-gradient-to-r from-primary/90 to-primary text-transparent bg-clip-text",
-    position: "text-base text-primary/70 font-medium",
-    divider: "w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent mt-4",
-    highlight: "text-neutral-600 dark:text-neutral-400 text-[15px] leading-relaxed",
-    highlightKey: "font-semibold text-primary/90"
+    title: "text-lg font-semibold text-neutral-900 dark:text-white",
+    position: "text-sm text-primary dark:text-primary/90 font-medium tracking-wide",
+    divider: "w-16 h-[2px] bg-[#00306b]/30 mx-auto my-3",
+    highlight: "text-neutral-700 dark:text-neutral-300 text-[13px] font-medium leading-snug",
+    highlightKey: "font-semibold text-[#00306b] dark:text-[#4d8eff]"
   },
   social: {
-    button: "text-primary/70 hover:text-primary transition-colors hover:bg-primary/5 rounded-full p-1.5"
+    button: "w-8 h-8 flex items-center justify-center text-[#0077b5] hover:text-[#0077b5] hover:bg-[#0077b5]/10 transition-all duration-300 rounded-full"
   }
 } as const;
 
@@ -119,20 +119,20 @@ const TeamMemberCard = ({ member }: { member: TeamMember }) => {
     <Card className={CARD_STYLES.wrapper}>
       <div>
         <TeamMemberAvatar imageUrl={imageUrl} name={name} position={position} />
-        <div className="text-center space-y-1">
+        <div className="text-center">
           <CardTitle className={CARD_STYLES.content.title}>
             {name}
           </CardTitle>
           <CardDescription className={CARD_STYLES.content.position}>
             {position}
           </CardDescription>
+          <div className={CARD_STYLES.content.divider} />
         </div>
-        <div className={CARD_STYLES.content.divider} />
 
-        <div className="mt-4 space-y-2.5">
+        <div className="mt-3 space-y-2">
           {highlights.map((highlight, index) => (
-            <div key={index} className="flex items-start gap-2.5">
-              <span className="text-primary/60 text-sm mt-1">●</span>
+            <div key={index} className="flex items-start gap-2">
+              <span className="text-[#00306b] text-xs mt-1 opacity-70">•</span>
               <span className={`${CARD_STYLES.content.highlight} ${
                 highlight.includes(keyHighlight) ? CARD_STYLES.content.highlightKey : ''
               }`}>
@@ -143,7 +143,7 @@ const TeamMemberCard = ({ member }: { member: TeamMember }) => {
         </div>
       </div>
 
-      <div className="flex justify-center border-t border-neutral-200/30 dark:border-neutral-700/30 mt-4 pt-4">
+      <div className="flex justify-center mt-4 pt-3 border-t border-neutral-100 dark:border-neutral-800">
         {socialNetworks.map(({ name, url }) => (
           <div key={name}>
             <a
@@ -151,9 +151,9 @@ const TeamMemberCard = ({ member }: { member: TeamMember }) => {
               href={url}
               target="_blank"
               className={CARD_STYLES.social.button}
+              aria-label={`${name} profile`}
             >
-              <span className="sr-only">{name} icon</span>
-              {name === "Linkedin" && <Linkedin size="22" />}
+              {name === "Linkedin" && <Linkedin size="18" />}
             </a>
           </div>
         ))}
@@ -164,19 +164,21 @@ const TeamMemberCard = ({ member }: { member: TeamMember }) => {
 
 export const Team = () => {
   return (
-    <section id="nosotros" className="container py-24 sm:py-32">
-      <h2 className="text-3xl md:text-4xl font-bold">
-        <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-          Nuestro Equipo{" "}
-        </span>
-        Experto
-      </h2>
+    <section id="nosotros" className="container py-20 sm:py-28">
+      <div className="max-w-3xl mx-auto text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <span className="text-primary">
+            Nuestro Equipo{" "}
+          </span>
+          Experto
+        </h2>
 
-      <p className="mt-4 mb-10 text-xl text-muted-foreground">
-        Profesionales altamente calificados con amplia experiencia en compliance y gestión de riesgos.
-      </p>
+        <p className="text-lg text-neutral-600 dark:text-neutral-300">
+          Profesionales altamente calificados con amplia experiencia en compliance y gestión de riesgos.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
         {teamList.map((member) => (
           <TeamMemberCard key={member.name} member={member} />
         ))}

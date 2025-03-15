@@ -18,6 +18,7 @@ export const FeaturesTimeline = ({ data }: { data: TimelineEntry[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -44,17 +45,37 @@ export const FeaturesTimeline = ({ data }: { data: TimelineEntry[] }) => {
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
   const opacityTransform = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
+  // Update active index based on scroll position
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange((value) => {
+      if (data.length <= 1) return;
+
+      // Calculate which section is currently in view
+      const sectionHeight = 1 / data.length;
+      const newIndex = Math.min(
+        data.length - 1,
+        Math.floor(value / sectionHeight)
+      );
+
+      if (newIndex !== activeIndex) {
+        setActiveIndex(newIndex);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [scrollYProgress, data.length, activeIndex]);
+
   return (
     <div
       className="w-full bg-background font-sans relative"
       ref={containerRef}
     >
-      <div className="max-w-7xl mx-auto py-16 sm:py-20 px-4 md:px-8 lg:px-10">
+      <div className="max-w-7xl mx-auto py-16 sm:py-24 px-4 md:px-8 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center space-y-8 mb-16 sm:mb-20"
+          className="text-center space-y-8 mb-16 sm:mb-24"
         >
           <motion.h2
             className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-3"
@@ -85,24 +106,29 @@ export const FeaturesTimeline = ({ data }: { data: TimelineEntry[] }) => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true, margin: "-100px" }}
-                className="flex justify-start pt-12 md:pt-32 md:gap-16"
+                className="flex justify-start pt-16 md:pt-40 md:gap-16"
               >
-                <div className="sticky flex flex-col md:flex-row z-30 items-center top-32 self-start max-w-xs lg:max-w-sm md:w-full">
-                  <div className="h-12 absolute left-3 md:left-3 w-12 rounded-full bg-background flex items-center justify-center shadow-lg">
-                    <div className="h-5 w-5 rounded-full bg-primary border-2 border-primary/20 transition-all duration-300" />
-                  </div>
-                  <div className="hidden md:block md:pl-24">
-                    <h3 className="text-2xl md:text-5xl font-bold leading-relaxed pb-1 bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text">
+                <div className="sticky flex flex-col md:flex-row z-30 items-start top-32 self-start max-w-xs lg:max-w-sm md:w-full">
+                  <div className="hidden md:block md:pl-16 lg:pl-20 xl:pl-24">
+                    <h3
+                      className={`text-2xl md:text-4xl lg:text-5xl font-bold leading-tight pb-1 bg-gradient-to-r text-transparent bg-clip-text transition-all duration-300 ${
+                        activeIndex === index
+                          ? 'from-primary to-primary/90 scale-[1.02] origin-left'
+                          : 'from-primary/60 to-primary/80'
+                      }`}
+                    >
                       {item.title}
                     </h3>
-                    <p className="text-neutral-800 dark:text-neutral-200 text-base md:text-lg font-medium tracking-wide mt-2">
+                    <p className={`text-neutral-800 dark:text-neutral-200 text-base md:text-lg font-medium tracking-wide mt-2 transition-opacity duration-300 ${
+                      activeIndex === index ? 'opacity-100' : 'opacity-80'
+                    }`}>
                       {item.subtitle}
                     </p>
                   </div>
                 </div>
 
-                <div className="relative pl-20 pr-4 md:pl-4 w-full">
-                  <div className="md:hidden block mb-6 text-left">
+                <div className="relative pl-20 pr-4 md:pl-6 lg:pl-8 w-full">
+                  <div className="md:hidden block mb-8 text-left">
                     <h3 className="text-3xl font-bold leading-relaxed pb-1 bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text">
                       {item.title}
                     </h3>
@@ -115,6 +141,9 @@ export const FeaturesTimeline = ({ data }: { data: TimelineEntry[] }) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
+                    className={`transition-all duration-500 ${
+                      activeIndex === index ? 'opacity-100 scale-100' : 'opacity-90 scale-[0.98]'
+                    }`}
                   >
                     {item.content}
                   </motion.div>

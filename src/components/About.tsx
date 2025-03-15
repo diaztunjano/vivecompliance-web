@@ -66,6 +66,7 @@ export const About = () => {
       id="about"
       className="container py-12 sm:py-24"
     >
+
       <motion.div
         className="bg-muted/50 border rounded-lg py-8 px-4 sm:py-12 sm:px-6 md:px-10"
         initial="hidden"
@@ -214,6 +215,7 @@ export const About = () => {
           </motion.div>
         </div>
       </motion.div>
+
     </section>
   );
 };

@@ -1,214 +1,368 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import YouTube from "react-youtube";
 import { Card, CardContent } from "./ui/card";
-import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "../components/Icons";
+import { Skeleton } from "./ui/skeleton";
 
-interface FeatureProps {
-  icon: JSX.Element;
-  title: string;
-  description: string;
-  steps: string[];
-  stepNumber: number;
+// YouTube channel ID for Vive Compliance
+const CHANNEL_ID = "UCuHnNmAumSx6cBTglHXRm_w"; // @ViveCompliance channel ID
+
+// Types for YouTube API responses
+interface VideoItem {
+  id: {
+    videoId: string;
+  };
+  snippet: {
+    publishedAt: string;
+    title: string;
+    description: string;
+    thumbnails: {
+      high: {
+        url: string;
+      };
+    };
+  };
 }
 
-const features: FeatureProps[] = [
+// Fallback videos in case the API fails
+const FALLBACK_VIDEOS = [
   {
-    icon: <MedalIcon />,
-    title: "Diagnóstico Inicial",
-    description: "Evaluación de la situación actual",
-    stepNumber: 1,
-    steps: [
-      "Evaluación exhaustiva",
-      "Identificación de brechas",
-      "Análisis de riesgos"
-    ]
+    id: { videoId: "qEkewUbN0W0" },
+    snippet: {
+      publishedAt: "2023-01-01T00:00:00Z",
+      title: "Video de Vive Compliance",
+      description: "Video de Vive Compliance cuando la API de YouTube no está disponible.",
+      thumbnails: {
+        high: {
+          url: "https://i.ytimg.com/vi/qEkewUbN0W0/hqdefault.jpg",
+        },
+      },
+    },
   },
   {
-    icon: <MapIcon />,
-    title: "Diseño Estratégico",
-    description: "Planificación detallada del proceso",
-    stepNumber: 2,
-    steps: [
-      "Planificación personalizada",
-      "Definición de objetivos",
-      "Establecimiento de KPIs"
-    ]
+    id: { videoId: "yLzYGjKqH_A" },
+    snippet: {
+      publishedAt: "2023-01-02T00:00:00Z",
+      title: "Video de Vive Compliance",
+      description: "Video de Vive Compliance cuando la API de YouTube no está disponible.",
+      thumbnails: {
+        high: {
+          url: "https://i.ytimg.com/vi/yLzYGjKqH_A/hqdefault.jpg",
+        },
+      },
+    },
   },
   {
-    icon: <PlaneIcon />,
-    title: "Implementación",
-    description: "Ejecución del plan estratégico",
-    stepNumber: 3,
-    steps: [
-      "Desarrollo de programas",
-      "Capacitación del personal",
-      "Integración de sistemas"
-    ]
+    id: { videoId: "BdSI2rr35Gc" },
+    snippet: {
+      publishedAt: "2023-01-03T00:00:00Z",
+      title: "Video de Vive Compliance",
+      description: "Video de Vive Compliance cuando la API de YouTube no está disponible.",
+      thumbnails: {
+        high: {
+          url: "https://i.ytimg.com/vi/BdSI2rr35Gc/hqdefault.jpg",
+        },
+      },
+    },
   },
   {
-    icon: <GiftIcon />,
-    title: "Seguimiento",
-    description: "Monitoreo y mejora continua",
-    stepNumber: 4,
-    steps: [
-      "Monitoreo continuo",
-      "Auditorías periódicas",
-      "Actualización de programas"
-    ]
+    id: { videoId: "WbqIWQI2vKw" },
+    snippet: {
+      publishedAt: "2023-01-04T00:00:00Z",
+      title: "Video de Vive Compliance",
+      description: "Video de Vive Compliance cuando la API de YouTube no está disponible.",
+      thumbnails: {
+        high: {
+          url: "https://i.ytimg.com/vi/WbqIWQI2vKw/hqdefault.jpg",
+        },
+      },
+    },
   },
 ];
 
 export const HowItWorks = () => {
+  const [videos, setVideos] = useState<VideoItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        setLoading(true);
+
+        // Get videos from channel
+        const searchResponse = await axios.get(
+          `https://www.googleapis.com/youtube/v3/search`,
+          {
+            params: {
+              part: "snippet",
+              channelId: CHANNEL_ID,
+              maxResults: 10, // Fetch more than needed in case some are shorts
+              order: "date",
+              type: "video",
+              key: import.meta.env.VITE_YOUTUBE_API_KEY,
+            },
+          }
+        );
+
+        if (!searchResponse.data.items || searchResponse.data.items.length === 0) {
+          throw new Error("No videos found");
+        }
+
+        // Get video IDs for statistics request
+        const videos = searchResponse.data.items.slice(0, 4); // Only take the first 4 videos
+
+        setVideos(videos);
+
+        // Set the first video as active
+        if (videos.length > 0) {
+          setActiveVideo(videos[0].id.videoId);
+        }
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          let errorMessage = "No se pudieron cargar los videos más recientes.";
+          if (err.response?.status === 403) {
+            errorMessage += " La API key puede tener restricciones o se ha excedido la cuota.";
+          } else if (err.response?.status === 404) {
+            errorMessage += " Canal no encontrado o no hay videos disponibles.";
+          } else if (err.response?.status === 400) {
+            errorMessage += " Solicitud incorrecta. Verifica el ID del canal y los parámetros de la API.";
+          }
+
+          setError(errorMessage + " Mostrando videos alternativos.");
+        } else {
+          setError("No se pudieron cargar los videos más recientes. Mostrando videos alternativos.");
+        }
+
+        setVideos(FALLBACK_VIDEOS);
+        setActiveVideo(FALLBACK_VIDEOS[0].id.videoId);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVideos();
+  }, []);
+
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    };
+    return new Date(dateString).toLocaleDateString('es-ES', options);
+  };
+
+  const handleVideoSelect = (videoId: string) => {
+    setActiveVideo(videoId);
+    setIsPlaying(true);
+    // Scroll to top of section on mobile
+    if (window.innerWidth < 768) {
+      const section = document.getElementById("howItWorks");
+      section?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const videoOpts = {
+    height: "100%",
+    width: "100%",
+    playerVars: {
+      autoplay: isPlaying ? 1 : 0,
+      modestbranding: 1,
+      rel: 0,
+    },
+  };
+
   return (
     <section
       id="howItWorks"
-      className="container py-24 lg:py-32"
+      className="container py-24 lg:py-32 overflow-hidden"
     >
       <div className="text-center mb-16 lg:mb-24">
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-          <span className="bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text">
-            Metodología
+          Videos y{" "}
+          <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
+            Webinars
           </span>
         </h2>
         <p className="md:w-2/3 mx-auto mt-6 text-lg md:text-xl text-muted-foreground font-light leading-relaxed">
-          Enfoque adaptado a las necesidades específicas de tu empresa
+          Mantente actualizado con nuestro contenido y suscríbete a nuestro canal para recibir las últimas novedades en compliance
         </p>
       </div>
 
+      {error && (
+        <div className="text-center text-red-500 mb-8 p-4 bg-red-50 rounded-lg">
+          <p className="font-medium">{error}</p>
+          <p className="text-sm mt-2">
+            Estamos mostrando videos seleccionados de Vive Compliance.
+          </p>
+        </div>
+      )}
+
       <div className="max-w-[1400px] mx-auto px-4">
-        {/* Desktop Layout */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-8 relative">
-          {features.map(({ icon, title, description, steps, stepNumber }: FeatureProps) => (
-            <div key={title} className="relative group h-full">
-              <Card className="relative bg-background border-2 border-border/20 dark:bg-card/95 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden h-full">
-                <CardContent className="p-6 lg:p-8 flex flex-col h-full">
-                  {/* Step Number and Icon */}
-                  <div className="flex flex-col items-center mb-8">
-                    <div className="relative flex items-center justify-center w-full">
-                      <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent flex items-center justify-center mb-4 group-hover:scale-105 transition-all duration-300">
-                        <div className="w-12 h-12 text-primary group-hover:text-primary/80 transition-colors duration-300">
-                          {icon}
-                        </div>
-                      </div>
-                      <span className="absolute -left-2 -top-2 w-8 h-8 rounded-xl bg-gradient-to-r from-primary/80 to-primary text-primary-foreground text-lg font-medium flex items-center justify-center shadow-[0_4px_10px_rgba(var(--primary-rgb),0.3)]">
-                        {stepNumber}
-                      </span>
-                    </div>
-                  </div>
+        {loading ? (
+          <VideoGallerySkeleton />
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+            {/* Main Featured Video */}
+            <div className="lg:col-span-2 space-y-4">
+              {activeVideo && (
+                <div className="relative aspect-video w-full overflow-hidden rounded-xl border-2 border-border/20 shadow-lg bg-card">
+                  <YouTube
+                    videoId={activeVideo}
+                    opts={videoOpts}
+                    className="absolute inset-0 w-full h-full"
+                    onReady={(event: { target: { playVideo: () => void } }) => {
+                      if (isPlaying) {
+                        event.target.playVideo();
+                      }
+                    }}
+                  />
+                </div>
+              )}
 
-                  {/* Content */}
-                  <div className="text-center flex-1 flex flex-col">
-                    <h3 className="text-xl font-semibold bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text mb-3 tracking-tight">
-                      {title}
-                    </h3>
-                    <p className="text-muted-foreground mb-6 font-light text-base leading-relaxed">
-                      {description}
-                    </p>
-                    <ul className="space-y-3 text-left mt-auto">
-                      {steps.map((step, index) => (
-                        <li key={index} className="flex items-start gap-3 group/item">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary border border-primary/20 group-hover/item:bg-primary transition-colors duration-300 flex-shrink-0 mt-2" />
-                          <span className="text-sm text-muted-foreground group-hover/item:text-foreground transition-colors duration-300">
-                            {step}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+              {/* Main Video Info */}
+              {videos.length > 0 && activeVideo && (
+                <div className="space-y-2">
+                  <h3 className="text-xl font-semibold line-clamp-2">
+                    {videos.find(v => v.id.videoId === activeVideo)?.snippet.title}
+                  </h3>
+                  <div className="text-sm text-muted-foreground">
+                    <span>
+                      {formatDate(videos.find(v => v.id.videoId === activeVideo)?.snippet.publishedAt || '')}
+                    </span>
                   </div>
-                </CardContent>
-              </Card>
+                  <p className="text-muted-foreground line-clamp-3 mt-2">
+                    {videos.find(v => v.id.videoId === activeVideo)?.snippet.description}
+                  </p>
+
+                  <a
+                    href={`https://www.youtube.com/watch?v=${activeVideo}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-4 text-primary hover:text-primary/80 font-medium"
+                  >
+                    Ver en YouTube
+                  </a>
+                </div>
+              )}
             </div>
-          ))}
-        </div>
 
-        {/* Tablet Layout */}
-        <div className="hidden md:grid lg:hidden md:grid-cols-2 gap-6">
-          {features.map(({ icon, title, description, steps, stepNumber }: FeatureProps) => (
-            <div key={title} className="relative group h-full">
-              <Card className="relative bg-background border-2 border-border/20 dark:bg-card/95 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden h-full">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-6">
-                    {/* Step Number and Icon */}
-                    <div className="flex-shrink-0 relative flex items-center justify-center">
-                      <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-primary/10 to-transparent flex items-center justify-center">
-                        <div className="w-10 h-10 text-primary">
-                          {icon}
+            {/* Video List */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium border-b pb-2 border-border/30">
+                Videos recientes
+              </h3>
+              <div className="space-y-4">
+                {videos.map((video) => (
+                  <Card
+                    key={video.id.videoId}
+                    className={`cursor-pointer transition-all duration-300 hover:shadow-md overflow-hidden ${
+                      activeVideo === video.id.videoId
+                        ? 'border-primary/50 bg-primary/5'
+                        : 'border-border/20'
+                    }`}
+                    onClick={() => handleVideoSelect(video.id.videoId)}
+                  >
+                    <CardContent className="p-3">
+                      <div className="flex gap-3">
+                        {/* Thumbnail */}
+                        <div className="relative flex-shrink-0 w-32 h-20 rounded-md overflow-hidden">
+                          <img
+                            src={video.snippet.thumbnails.high.url}
+                            alt={video.snippet.title}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                            <div className="w-10 h-10 rounded-full bg-primary/90 flex items-center justify-center">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-5 h-5 text-white ml-0.5"
+                              >
+                                <path d="M8 5v14l11-7z" />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Video Info */}
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-sm line-clamp-2">
+                            {video.snippet.title}
+                          </h4>
+                          <div className="text-xs text-muted-foreground mt-1">
+                            {formatDate(video.snippet.publishedAt)}
+                          </div>
                         </div>
                       </div>
-                      <span className="absolute -left-2 -top-2 w-7 h-7 rounded-lg bg-gradient-to-r from-primary/80 to-primary text-primary-foreground text-base font-medium flex items-center justify-center shadow-[0_4px_10px_rgba(var(--primary-rgb),0.3)]">
-                        {stepNumber}
-                      </span>
-                    </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
 
-                    {/* Content */}
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text mb-2 tracking-tight">
-                        {title}
-                      </h3>
-                      <p className="text-muted-foreground mb-4 font-light text-sm leading-relaxed">
-                        {description}
-                      </p>
-                      <ul className="space-y-2">
-                        {steps.map((step, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-primary border border-primary/20 flex-shrink-0 mt-2" />
-                            <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
-                              {step}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              {/* Subscribe Button */}
+              <a
+                href="https://www.youtube.com/@ViveCompliance?sub_confirmation=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-medium transition-colors w-full justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path d="M12.244 4c.534.003 1.87.016 3.29.073l.504.021c1.429.067 2.857.183 3.566.38.945.266 1.687 1.04 1.938 2.022.4 1.56.458 4.662.458 5.504v.001c0 .845-.058 3.946-.459 5.504-.25.981-.992 1.756-1.937 2.022-.709.197-2.137.313-3.566.38l-.504.022c-1.42.056-2.756.07-3.29.072h-.49c-.534-.003-1.87-.016-3.29-.073l-.504-.021c-1.429-.067-2.857-.183-3.566-.38-.945-.266-1.687-1.04-1.938-2.022-.4-1.56-.458-4.662-.458-5.504v-.001c0-.845.058-3.946.459-5.504.25-.981.992-1.756 1.937-2.022.709-.197 2.137-.313 3.566-.38l.504-.022c1.42-.056 2.756-.07 3.29-.072h.49zM9.999 8.5v7l6-3.5-6-3.5z" />
+                </svg>
+                Suscribirse al canal
+              </a>
             </div>
-          ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+// Loading skeleton component
+const VideoGallerySkeleton = () => {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+      {/* Main Video Skeleton */}
+      <div className="lg:col-span-2 space-y-4">
+        <Skeleton className="aspect-video w-full rounded-xl" />
+        <div className="space-y-2">
+          <Skeleton className="h-7 w-3/4" />
+          <Skeleton className="h-4 w-1/3" />
+          <div className="space-y-1 pt-2">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-2/3" />
+          </div>
         </div>
+      </div>
 
-        {/* Mobile Layout */}
-        <div className="md:hidden space-y-6">
-          {features.map(({ icon, title, description, steps, stepNumber }: FeatureProps) => (
-            <div key={title} className="relative group">
-              <Card className="relative bg-background border-2 border-border/20 dark:bg-card/95 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden">
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-6">
-                    {/* Step Number and Icon */}
-                    <div className="flex-shrink-0 relative flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary/10 to-transparent flex items-center justify-center">
-                        <div className="w-8 h-8 text-primary">
-                          {icon}
-                        </div>
-                      </div>
-                      <span className="absolute -left-2 -top-2 w-6 h-6 rounded-lg bg-gradient-to-r from-primary/80 to-primary text-primary-foreground text-sm font-medium flex items-center justify-center shadow-[0_4px_10px_rgba(var(--primary-rgb),0.3)]">
-                        {stepNumber}
-                      </span>
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 pt-1">
-                      <h3 className="text-lg font-semibold bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text mb-2 tracking-tight">
-                        {title}
-                      </h3>
-                      <p className="text-muted-foreground mb-3 font-light text-sm leading-relaxed">
-                        {description}
-                      </p>
-                      <ul className="space-y-2">
-                        {steps.map((step, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-primary border border-primary/20 flex-shrink-0 mt-2" />
-                            <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
-                              {step}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+      {/* Video List Skeleton */}
+      <div className="space-y-4">
+        <Skeleton className="h-7 w-1/2" />
+        <div className="space-y-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="flex gap-3">
+              <Skeleton className="w-32 h-20 rounded-md flex-shrink-0" />
+              <div className="flex-1 space-y-2">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-2/3" />
+                <Skeleton className="h-3 w-1/3" />
+              </div>
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
