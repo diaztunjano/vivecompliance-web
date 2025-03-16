@@ -15,7 +15,6 @@ import {
 import { buttonVariants } from "./ui/button";
 import { Menu, BookOpenIcon } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
-import { LogoIcon } from "./Icons";
 
 interface RouteProps {
   href: string;
@@ -58,16 +57,22 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <header className="sticky border-b-[1px] top-0 z-50 w-full bg-white dark:border-b-slate-700 dark:bg-background">
+    <header className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-md dark:bg-slate-900/70 border-b-2 border-orange-500/30 dark:border-orange-400/30 shadow-sm">
       <NavigationMenu className="mx-auto">
-        <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
+        <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between items-center">
           <NavigationMenuItem className="font-bold flex">
             <a
               rel="noreferrer noopener"
               href="/"
-              className="ml-2 font-bold text-xl flex"
+              className="ml-2 font-bold text-xl flex items-center text-primary hover:text-primary/80"
             >
-              <LogoIcon />
+              <img
+                src="/vivecompliance_logo.png"
+                alt="Vive Compliance Logo"
+                width={32}
+                height={32}
+                className="mr-2"
+              />
               Vive Compliance
             </a>
           </NavigationMenuItem>
@@ -89,7 +94,7 @@ export const Navbar = () => {
                 </Menu>
               </SheetTrigger>
 
-              <SheetContent side={"left"}>
+              <SheetContent side={"left"} className="backdrop-blur-md bg-white/90 dark:bg-slate-900/90">
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
                     Vive Compliance
@@ -134,9 +139,7 @@ export const Navbar = () => {
                 href={route.href}
                 key={i}
                 onClick={(e) => handleScroll(e, route.href)}
-                className={`text-[17px] ${buttonVariants({
-                  variant: "ghost",
-                })}`}
+                className={`text-[17px] ${buttonVariants({ variant: "ghost" })}`}
               >
                 {route.label}
               </a>
