@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
   Card,
@@ -6,32 +8,45 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import AutoScroll from "embla-carousel-auto-scroll";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 interface TestimonialProps {
   image: string;
   name: string;
   userName: string;
+  company?: string;
   comment: string;
 }
 
 const testimonials: TestimonialProps[] = [
   {
-    image: "/testimonials/maria-rodriguez.jpg",
-    name: "María Rodriguez",
+    image: "/testimonials/Lina_Giraldo.webp",
+    name: "Lina Giraldo",
     userName: "Gerente de Cumplimiento",
-    comment: "La implementación del sistema de gestión antisoborno ISO 37001 con Vive Compliance transformó nuestra cultura organizacional. Su equipo demostró un profundo conocimiento y profesionalismo excepcional durante todo el proceso. Los resultados superaron nuestras expectativas.",
+    company: "Alpha Securities Inc",
+    comment: "Vive Compliance nos ayudó a implementar nuestro programa BC/FT con soluciones personalizadas y un equipo profesional. Cumplimos con las normas y establecimos controles efectivos y eficientes. <strong>Altamente recomendados por su enfoque y resultados.</strong>",
   },
   {
-    image: "/testimonials/carlos-mendoza.jpg",
-    name: "Carlos Mendoza",
-    userName: "Director de Riesgos",
-    comment: "El programa de capacitación en prevención de blanqueo de capitales fue extraordinario. La metodología práctica y el conocimiento compartido por los expertos de Vive Compliance nos permitió fortalecer nuestros controles internos de manera significativa.",
+    image: "/testimonials/Maritza_Galindo.jpeg",
+    name: "Maritza Galindo",
+    userName: "Directora del Centro de Capacitación",
+    company: "BASC",
+    comment: "Yudy Tunjano fue clave en nuestros programas de formación. Su conocimiento práctico, calificación de 9.9 y habilidad para conectar con estudiantes destacaron. <strong>Nuestros estudiantes se sienten más preparados y seguros en su trabajo.</strong>",
   },
   {
-    image: "/testimonials/ana-martinez.jpg",
-    name: "Ana Martinez",
-    userName: "CEO Fintech Solutions",
-    comment: "La asesoría en cumplimiento normativo de Vive Compliance fue fundamental para nuestra expansión regional. Su equipo demostró una dedicación excepcional y un profundo entendimiento de las regulaciones internacionales. Altamente recomendados.",
+    image: "/testimonials/Vanessa_Cure.jpeg",
+    name: "Vanessa Cure Anturi",
+    userName: "Directora Ejecutiva",
+    company: "Asociación Colombiana de Seguridad - ASOSEC®",
+    comment: "En el Diplomado de Gestión de Riesgos, la Dra. Tunjano destacó por su claridad, experiencia y dominio normativo. <strong>Su compromiso con la cultura de cumplimiento y la excelencia la posiciona como una referencia en la industria.</strong>",
+  },
+  {
+    image: "/testimonials/Mark_Bartch.jpeg",
+    name: "Mark Bartch",
+    userName: "Director CIPE Internacional",
+    comment: "Implementamos con éxito la norma ISO 37001 gracias a la asesoría de Vive Compliance. <strong>Logramos un sistema anti-soborno que cumplió la norma y fortaleció nuestra cultura organizacional en torno a la ética y la transparencia.</strong>",
   },
 ];
 
@@ -47,66 +62,119 @@ export const Testimonials = () => {
   return (
     <section
       id="testimonials"
-      className="container py-24 sm:py-32 relative"
+      className="w-full bg-background font-sans relative py-10 sm:py-16"
     >
-      {/* Background decoration */}
+      {/* Background decoration with subtle patterns */}
       <div className="absolute inset-0 -z-10 opacity-5 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/30 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/30 rounded-full blur-3xl" />
+        <div className="absolute top-3/4 left-1/4 w-[300px] h-[300px] bg-indigo-500/20 rounded-full blur-2xl" />
+        <div className="absolute top-1/4 right-1/4 w-[250px] h-[250px] bg-amber-500/10 rounded-full blur-2xl" />
       </div>
 
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Descubre por qué las empresas
-          <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-            {" "}
-            confían en{" "}
-          </span>
-          Vive Compliance
-        </h2>
-
-        <p className="text-xl text-muted-foreground">
-          Nuestros clientes respaldan nuestro compromiso con la excelencia en servicios de compliance y gestión de riesgos
-        </p>
-      </div>
-
-      {/* Shadow effect */}
-      <div className="shadow"></div>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {testimonials.map(
-          ({ image, name, userName, comment }: TestimonialProps) => (
-            <Card
-              key={userName}
-              className="relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-gradient-to-b from-card to-card/40"
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center space-y-5 mb-10 sm:mb-14"
+        >
+          <div className="max-w-5xl mx-auto">
+            <motion.h2
+              className="font-bold tracking-tight leading-tight"
             >
-              <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                <Avatar className="h-14 w-14 ring-2 ring-primary/20">
-                  <AvatarImage
-                    alt={`Foto de ${name}`}
-                    src={image}
-                  />
-                  <AvatarFallback className="bg-primary/5 text-primary">
-                    {getInitials(name)}
-                  </AvatarFallback>
-                </Avatar>
+              <span className="text-foreground text-3xl sm:text-4xl lg:text-5xl">
+                Descubre por qué las empresas
+              </span>
+              <br className="sm:hidden" />
+              <span className="sm:ml-3 bg-gradient-to-r from-primary/80 to-primary text-transparent bg-clip-text text-3xl sm:text-4xl lg:text-5xl">
+                confían en Vive Compliance
+              </span>
+            </motion.h2>
+          </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-base sm:text-lg text-muted-foreground/90 max-w-2xl mx-auto leading-relaxed"
+          >
+            Nuestros clientes respaldan nuestro compromiso con la excelencia en servicios de compliance y gestión de riesgos
+          </motion.p>
+        </motion.div>
 
-                <div className="flex flex-col">
-                  <CardTitle className="text-xl font-semibold">{name}</CardTitle>
-                  <CardDescription className="text-primary/80">{userName}</CardDescription>
-                </div>
-              </CardHeader>
+        {/* Testimonials Carousel */}
+        <div className="relative w-full py-6">
+          <div className="relative mx-auto flex items-center justify-center">
+            <Carousel
+              opts={{
+                loop: true,
+                align: "start",
+                dragFree: true,
+              }}
+              plugins={[
+                AutoScroll({
+                  playOnInit: true,
+                  speed: 0.5,
+                }),
+              ]}
+              className="w-full max-w-full"
+            >
+              <CarouselContent className="-ml-2 md:-ml-3 lg:-ml-4">
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem
+                    key={`testimonial-${index}`}
+                    className="pl-2 md:pl-3 lg:pl-4 basis-[85vw] sm:basis-[380px] md:basis-[400px] lg:basis-[420px] py-3"
+                  >
+                    <div className="transition-all duration-300 hover:scale-[1.02] h-full">
+                      <Card className="h-full flex flex-col bg-white dark:bg-card/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-500">
+                        <CardHeader className="pb-2 pt-5 px-5">
+                          <div className="flex flex-row items-center gap-4">
+                            <Avatar className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full ring-2 ring-primary/10 shadow-sm">
+                              <AvatarImage
+                                alt={`Foto de ${testimonial.name}`}
+                                src={testimonial.image}
+                                className="object-cover"
+                              />
+                              <AvatarFallback className="bg-primary/5 text-primary font-semibold text-lg">
+                                {getInitials(testimonial.name)}
+                              </AvatarFallback>
+                            </Avatar>
 
-              <CardContent className="pt-4 text-muted-foreground leading-relaxed">
-                "{comment}"
-              </CardContent>
+                            <div className="flex flex-col items-start">
+                              <CardTitle className="text-lg sm:text-xl font-bold text-primary">
+                                {testimonial.name}
+                              </CardTitle>
+                              <CardDescription className="text-sm sm:text-base text-foreground/90 font-medium mt-0.5">
+                                {testimonial.userName}
+                              </CardDescription>
+                              {testimonial.company && (
+                                <CardDescription className="text-xs sm:text-sm text-muted-foreground italic mt-0">
+                                  {testimonial.company}
+                                </CardDescription>
+                              )}
+                            </div>
+                          </div>
+                        </CardHeader>
 
-              {/* Decorative quote icon */}
-              <div className="absolute top-4 right-4 text-4xl text-primary/10">
-                "
-              </div>
-            </Card>
-          )
-        )}
+                        <CardContent className="px-5 pb-5 pt-1 flex-grow">
+                          <div className="text-left h-full flex flex-col justify-center">
+                            <p
+                              className="text-sm text-muted-foreground/90 leading-relaxed"
+                              dangerouslySetInnerHTML={{ __html: testimonial.comment }}
+                            />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+
+          {/* Gradient overlays for fading effect */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-[8%] bg-gradient-to-r from-background to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-[8%] bg-gradient-to-l from-background to-transparent" />
+        </div>
       </div>
     </section>
   );
