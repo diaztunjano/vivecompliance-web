@@ -14,7 +14,6 @@ import {
 
 import { buttonVariants } from "./ui/button";
 import { Menu, BookOpenIcon } from "lucide-react";
-import { ModeToggle } from "./mode-toggle";
 
 interface RouteProps {
   href: string;
@@ -57,7 +56,7 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-md dark:bg-slate-900/70 border-b-2 border-orange-500/30 dark:border-orange-400/30 shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-md border-b-2 border-orange-500/30 shadow-sm">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between items-center">
           <NavigationMenuItem className="font-bold flex">
@@ -79,8 +78,6 @@ export const Navbar = () => {
 
           {/* mobile */}
           <span className="flex md:hidden">
-            <ModeToggle />
-
             <Sheet
               open={isOpen}
               onOpenChange={setIsOpen}
@@ -94,7 +91,7 @@ export const Navbar = () => {
                 </Menu>
               </SheetTrigger>
 
-              <SheetContent side={"left"} className="backdrop-blur-md bg-white/90 dark:bg-slate-900/90">
+              <SheetContent side={"left"} className="backdrop-blur-md bg-white/90">
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
                     Vive Compliance
@@ -156,8 +153,6 @@ export const Navbar = () => {
               <BookOpenIcon className="mr-2 w-5 h-5" />
               Publicaciones
             </a>
-
-            <ModeToggle />
           </div>
         </NavigationMenuList>
       </NavigationMenu>
