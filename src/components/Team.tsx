@@ -42,58 +42,55 @@ const CARD_STYLES = {
 // Data
 const teamList: TeamMember[] = [
   {
-    imageUrl: "https://i.pravatar.cc/150?img=35",
+    imageUrl: "/team/yudy_tunjano.jpg",
     name: "Yudy Tunjano",
     position: "Presidente",
     keyHighlight: "Máster Compliance Officer",
     highlights: [
-      "Abogada colombiana y chilena con Magister en Derecho de la Empresa (PUC Chile)",
-      "Máster Compliance Officer (UCM Madrid) y Diplomada en SARLAFT",
-      "Certificada como Auditora en ISO 9001, 31000, 37001 y 37301",
-      "Miembro del Comité Espejo ISO/TC en Panamá",
-      "20+ años de experiencia en compliance y sistemas de gestión"
+      "Abogada colombiana y chilena, Magíster en Derecho de la Empresa (PUC Chile)",
+      "Máster Compliance Officer (UCM) y Máster en Gestión de Riesgos (UC Murcia)",
+      "+20 años de experiencia en legal y compliance de multinacionales. Conferencista internacional",
+      "Diplomada en SARLAFT y Compliance",
+      "Certificada en ISO 17024, ISO37001, ISO 37301 e ISO 31000"
     ],
     socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/leopoldo-miranda/" }]
   },
   {
-    imageUrl: "https://i.pravatar.cc/150?img=60",
-    name: "Carlos Boschell",
+    imageUrl: "/team/carlos_boschell.jpeg",
+    name: "Carlos Boshell",
     position: "Director de Riesgos",
-    keyHighlight: "Oficial de la Reserva Activa",
+    keyHighlight: "Oficial Reserva Activa",
     highlights: [
-      "Oficial de la Reserva Activa de la Policía Nacional Colombiana",
-      "Especialista en Investigación Criminal y Alta Dirección",
-      "Auditor Internacional Certificado BASC y Risk Manager ISO 31000",
-      "Certificado en ISO 17024, 37001, 22301, 37301, 18788",
-      "35+ años en Proyectos de Seguridad e Investigaciones"
+      "Oficial Reserva Activa de la Policía Nacional (Colombia)",
+      "Profesional en Administración y Criminalística, especialista en Investigación Criminal",
+      "Auditor Líder e implementador ISO 37001, 37301, 22301 y Risk Manager ISO 31000",
+      "Diseñador del SARLAFT en la Superintendencia de Vigilancia y Seguridad Privada"
     ],
     socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/leopoldo-miranda/" }]
   },
   {
-    imageUrl: "https://i.pravatar.cc/150?img=36",
+    imageUrl: "/team/anna_admade.jpeg",
     name: "Anna Admadé",
     position: "Directora de Cumplimiento",
-    keyHighlight: "Magister en Leyes",
+    keyHighlight: "Experta en prevención de blanqueo de capitales",
     highlights: [
-      "Magister en Leyes LLM (PUC Chile) y Abogado",
-      "Especialista en Compliance y Gestión de Riesgos (GWU)",
-      "Business & Life Coach Certificado (ICMF)",
-      "Consultor en Cumplimiento Corporativo",
-      "Impulsor de iniciativas de ley en cultura de cumplimiento"
+      "Experta en prevención de blanqueo de capitales y financiamiento del terrorismo",
+      "Licenciada en Derecho y Ciencias Políticas (Summa Cum Laude)",
+      "Máster en Tributación y Gestión Fiscal, exdirectora de compliance en Panamá",
+      "Conferencista internacional y docente universitaria"
     ],
     socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/leopoldo-miranda/" }]
   },
   {
-    imageUrl: "https://i.pravatar.cc/150?img=26",
-    name: "Omaira Bejarano",
-    position: "Directora de Programas Anticorrupción",
-    keyHighlight: "Magister en Leyes",
+    imageUrl: "/team/erik_maldonado.jpeg",
+    name: "Erik Maldonado",
+    position: "Director de Programas Anticorrupción",
+    keyHighlight: "Especialista en Compliance y Anticorrupción",
     highlights: [
-      "Magister en Leyes LLM (PUC Chile) y Abogado",
-      "Especialista en Compliance y Gestión de Riesgos (GWU)",
-      "Business & Life Coach Certificado (ICMF)",
-      "Consultor en Cumplimiento Corporativo",
-      "Impulsor de iniciativas de ley en cultura de cumplimiento"
+      "Abogado y Notario guatemalteco, Magíster en Leyes (PUC Chile)",
+      "Especialista en Compliance y Gestión de Riesgos (The George Washington University)",
+      "Excoordinador del Centro de Asistencia Legal Anticorrupción (Transparencia Internacional Guatemala)",
+      "Cofundador de Proactiva Empresarial Compliance Guatemala, certificado en ISO 37301"
     ],
     socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/leopoldo-miranda/" }]
   }
