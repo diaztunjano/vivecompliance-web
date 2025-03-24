@@ -80,7 +80,7 @@ const FALLBACK_VIDEOS = [
   },
 ];
 
-export const HowItWorks = () => {
+export const Webinars= () => {
   const [videos, setVideos] = useState<VideoItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -177,7 +177,7 @@ export const HowItWorks = () => {
 
   return (
     <section
-      id="howItWorks"
+      id="webinars"
       className="container py-24 lg:py-32 overflow-hidden"
     >
       <div className="text-center mb-16 lg:mb-24">

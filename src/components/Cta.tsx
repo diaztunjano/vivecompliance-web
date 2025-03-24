@@ -1,6 +1,14 @@
 import { Button } from "./ui/button";
 
 export const Cta = () => {
+  const handleScroll = (e: React.MouseEvent<HTMLButtonElement>, target: string) => {
+    e.preventDefault();
+    const element = document.querySelector(target);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section
       id="cta"
@@ -16,12 +24,16 @@ export const Cta = () => {
             </span>
           </h2>
           <p className="text-muted-foreground text-xl mt-6 mb-8 lg:mb-0 leading-relaxed">
-            ¿Eres un experto en compliance? Únete a nuestra red de colaboradores y comparte tus insights con más de 5000 profesionales. Tu experiencia puede transformar la cultura ética empresarial en Latinoamérica.
+            Únete a nuestra red de colaboradores y comparte tus insights con más de 5000 profesionales. Tu experiencia puede transformar la cultura ética empresarial en Latinoamérica.
           </p>
         </div>
 
         <div className="space-y-4 lg:space-y-0 lg:flex lg:gap-4 lg:col-start-2">
-          <Button size="lg" className="w-full md:w-auto text-base font-medium">
+          <Button
+            size="lg"
+            className="w-full md:w-auto text-base font-medium"
+            onClick={(e) => handleScroll(e, "#contact")}
+          >
             Publicar Artículo
           </Button>
           <Button

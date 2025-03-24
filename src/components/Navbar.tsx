@@ -30,11 +30,15 @@ const routeList: RouteProps[] = [
     label: "Magazine",
   },
   {
+    href: "#webinars",
+    label: "Webinars",
+  },
+  {
     href: "#nosotros",
     label: "Nosotros",
   },
   {
-    href: "#contacto",
+    href: "#contact",
     label: "Contacto",
   },
 ];

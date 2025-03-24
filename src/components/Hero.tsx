@@ -5,6 +5,14 @@ import { Typewriter } from "./ui/typewriter";
 export const Hero = () => {
   const titles = ["reputación", "confianza", "valor", "seguridad", "excelencia"];
 
+  const handleScroll = (e: React.MouseEvent<HTMLButtonElement>, target: string) => {
+    e.preventDefault();
+    const element = document.querySelector(target);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="container mx-auto">
@@ -51,10 +59,10 @@ export const Hero = () => {
           </div>
 
           <div className="flex flex-col md:flex-row gap-3">
-            <Button size="lg" className="gap-2" variant="outline">
+            <Button size="lg" className="gap-2" variant="outline" onClick={(e) => handleScroll(e, "#contact")}>
               Contáctanos <PhoneIcon className="w-4 h-4" />
             </Button>
-            <Button size="lg" className="gap-2">
+            <Button size="lg" className="gap-2" onClick={(e) => handleScroll(e, "#magazine")}>
               Publicaciones <ArrowRightIcon className="w-4 h-4" />
             </Button>
           </div>
