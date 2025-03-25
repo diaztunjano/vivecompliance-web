@@ -118,7 +118,7 @@ export const Navbar = () => {
                   ))}
                   <a
                     rel="noreferrer noopener"
-                    href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+                    href="https://yudytunjano.substack.com"
                     target="_blank"
                     className={`w-[110px] border ${buttonVariants({
                       variant: "secondary",
@@ -150,8 +150,8 @@ export const Navbar = () => {
           <div className="hidden md:flex gap-2">
             <a
               rel="noreferrer noopener"
-              href="#magazine"
-              onClick={(e) => handleScroll(e, "#magazine")}
+              href="https://yudytunjano.substack.com"
+              target="_blank"
               className={`border ${buttonVariants({ variant: "secondary" })}`}
             >
               <BookOpenIcon className="mr-2 w-5 h-5" />

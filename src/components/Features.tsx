@@ -8,7 +8,7 @@ const preventionImage = "https://images.unsplash.com/photo-1450101499163-c8848c6
 const riskManagementImage = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop";
 const identificationImage = "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=600&auto=format&fit=crop";
 const whistleblowingImage = "https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=600&auto=format&fit=crop";
-const trainingImage = "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600&auto=format&fit=crop";
+const trainingImage = "./public/seminarios.jpg";
 
 // Definimos el color azul para acentos
 // const accentBlueLight = "from-[#00306b] to-[#0055bb]";
