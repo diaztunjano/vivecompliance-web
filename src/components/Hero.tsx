@@ -4,6 +4,7 @@ import { Typewriter } from "./ui/typewriter";
 
 export const Hero = () => {
   const titles = ["reputación", "confianza", "valor", "seguridad", "excelencia"];
+  const substackUrl = "yudytunjano.substack.com";
 
   const handleScroll = (e: React.MouseEvent<HTMLButtonElement>, target: string) => {
     e.preventDefault();
@@ -18,8 +19,14 @@ export const Hero = () => {
       <div className="container mx-auto">
         <div className="flex gap-8 py-20 lg:py-40 items-center justify-center flex-col">
           <div>
-            <Button variant="secondary" size="sm" className="gap-2">
-              Lee nuestro último artículo <ArrowRightIcon className="w-4 h-4" />
+            <Button variant="secondary" size="sm" className="gap-2" asChild>
+              <a
+                href={`https://${substackUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Lee nuestro último artículo <ArrowRightIcon className="w-4 h-4" />
+              </a>
             </Button>
           </div>
 
@@ -62,8 +69,15 @@ export const Hero = () => {
             <Button size="lg" className="gap-2" variant="outline" onClick={(e) => handleScroll(e, "#contact")}>
               Contáctanos <PhoneIcon className="w-4 h-4" />
             </Button>
-            <Button size="lg" className="gap-2" onClick={(e) => handleScroll(e, "#magazine")}>
-              Publicaciones <ArrowRightIcon className="w-4 h-4" />
+            <Button size="lg" className="gap-2" asChild>
+              <a
+                href={`https://${substackUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gap-2"
+              >
+                Publicaciones <ArrowRightIcon className="w-4 h-4" />
+              </a>
             </Button>
           </div>
         </div>
