@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import YouTube from "react-youtube";
 import { Card, CardContent } from "./ui/card";
 import { Skeleton } from "./ui/skeleton";
-
-// YouTube channel ID for Vive Compliance
-const CHANNEL_ID = "UCuHnNmAumSx6cBTglHXRm_w"; // @ViveCompliance channel ID
 
 // Types for YouTube API responses
 interface VideoItem {
@@ -92,27 +88,18 @@ export const Webinars= () => {
       try {
         setLoading(true);
 
-        // Get videos from channel
-        const searchResponse = await axios.get(
-          `https://www.googleapis.com/youtube/v3/search`,
-          {
-            params: {
-              part: "snippet",
-              channelId: CHANNEL_ID,
-              maxResults: 10, // Fetch more than needed in case some are shorts
-              order: "date",
-              type: "video",
-              key: import.meta.env.VITE_YOUTUBE_API_KEY,
-            },
-          }
-        );
+        // Get videos from Cloudflare Worker
+        const response = await fetch('https://vivecomplianceyoutube.david-diaz-tunjano.workers.dev/');
 
-        if (!searchResponse.data.items || searchResponse.data.items.length === 0) {
-          throw new Error("No videos found");
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
         }
 
-        // Get video IDs for statistics request
-        const videos = searchResponse.data.items.slice(0, 4); // Only take the first 4 videos
+        const videos = await response.json();
+
+        if (!videos || videos.length === 0) {
+          throw new Error("No videos found");
+        }
 
         setVideos(videos);
 
@@ -121,21 +108,13 @@ export const Webinars= () => {
           setActiveVideo(videos[0].id.videoId);
         }
       } catch (err) {
-        if (axios.isAxiosError(err)) {
-          let errorMessage = "No se pudieron cargar los videos más recientes.";
-          if (err.response?.status === 403) {
-            errorMessage += " La API key puede tener restricciones o se ha excedido la cuota.";
-          } else if (err.response?.status === 404) {
-            errorMessage += " Canal no encontrado o no hay videos disponibles.";
-          } else if (err.response?.status === 400) {
-            errorMessage += " Solicitud incorrecta. Verifica el ID del canal y los parámetros de la API.";
-          }
+        let errorMessage = "No se pudieron cargar los videos más recientes.";
 
-          setError(errorMessage + " Mostrando videos alternativos.");
-        } else {
-          setError("No se pudieron cargar los videos más recientes. Mostrando videos alternativos.");
+        if (err instanceof Error) {
+          errorMessage += ` ${err.message}`;
         }
 
+        setError(errorMessage + " Mostrando videos alternativos.");
         setVideos(FALLBACK_VIDEOS);
         setActiveVideo(FALLBACK_VIDEOS[0].id.videoId);
       } finally {
