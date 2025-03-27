@@ -15,7 +15,7 @@ export const Contact = () => {
   const [message, setMessage] = useState<string>("");
 
   // // Please update the Access Key in the .env
-  const apiKey = "a4a2ec6f-932b-4062-bb41-2da50ca4dade";
+  const apiKey = "88cbfaf9-c994-461b-beb2-0eae2b9b7cc0";
 
   const { submit: onSubmit } = useWeb3Forms({
     access_key: apiKey,
