@@ -53,7 +53,7 @@ const teamList: TeamMember[] = [
       "Diplomada en SARLAFT y Compliance",
       "Certificada en ISO 17024, ISO37001, ISO 37301 e ISO 31000"
     ],
-    socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/leopoldo-miranda/" }]
+    socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/yudy-tunjano/" }]
   },
   {
     imageUrl: "/team/carlos_boschell.jpeg",
@@ -66,7 +66,7 @@ const teamList: TeamMember[] = [
       "Auditor Líder e implementador ISO 37001, 37301, 22301 y Risk Manager ISO 31000",
       "Diseñador del SARLAFT en la Superintendencia de Vigilancia y Seguridad Privada"
     ],
-    socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/leopoldo-miranda/" }]
+    socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/carlos-alfonso-boshell-norman-a9363738/" }]
   },
   {
     imageUrl: "/team/anna_admade.jpeg",
@@ -79,7 +79,7 @@ const teamList: TeamMember[] = [
       "Máster en Tributación y Gestión Fiscal, exdirectora de compliance en Panamá",
       "Conferencista internacional y docente universitaria"
     ],
-    socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/leopoldo-miranda/" }]
+    socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/anna-marissa-admad%C3%A9-c%C3%A9spedes-16331143/" }]
   },
   {
     imageUrl: "/team/erik_maldonado.jpeg",
@@ -92,7 +92,7 @@ const teamList: TeamMember[] = [
       "Excoordinador del Centro de Asistencia Legal Anticorrupción (Transparencia Internacional Guatemala)",
       "Cofundador de Proactiva Empresarial Compliance Guatemala, certificado en ISO 37301"
     ],
-    socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/leopoldo-miranda/" }]
+    socialNetworks: [{ name: "Linkedin", url: "https://www.linkedin.com/in/emaldo/" }]
   }
 ];
 
