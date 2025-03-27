@@ -11,6 +11,7 @@ import {
 import { motion } from "framer-motion";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Linkedin } from "lucide-react";
 
 interface TestimonialProps {
   image: string;
@@ -18,6 +19,7 @@ interface TestimonialProps {
   userName: string;
   company?: string;
   comment: string;
+  linkedinUrl?: string;
 }
 
 const testimonials: TestimonialProps[] = [
@@ -27,6 +29,7 @@ const testimonials: TestimonialProps[] = [
     userName: "Gerente de Cumplimiento",
     company: "Alpha Securities Inc",
     comment: "Vive Compliance nos ayudó a implementar nuestro programa BC/FT con soluciones personalizadas y un equipo profesional. Cumplimos con las normas y establecimos controles efectivos y eficientes. <strong>Altamente recomendados por su enfoque y resultados.</strong>",
+    linkedinUrl: "https://www.linkedin.com/in/linagiraldoaml/",
   },
   {
     image: "/testimonials/Maritza_Galindo.jpeg",
@@ -34,6 +37,7 @@ const testimonials: TestimonialProps[] = [
     userName: "Directora del Centro de Capacitación",
     company: "BASC",
     comment: "Yudy Tunjano fue clave en nuestros programas de formación. Su conocimiento práctico, calificación de 9.9 y habilidad para conectar con estudiantes destacaron. <strong>Nuestros estudiantes se sienten más preparados y seguros en su trabajo.</strong>",
+    linkedinUrl: "https://www.linkedin.com/in/maritza-galindo-carvajal-627a5a46/",
   },
   {
     image: "/testimonials/Vanessa_Cure.jpeg",
@@ -47,6 +51,7 @@ const testimonials: TestimonialProps[] = [
     name: "Mark Bartch",
     userName: "Director CIPE Internacional",
     comment: "Implementamos con éxito la norma ISO 37001 gracias a la asesoría de Vive Compliance. <strong>Logramos un sistema anti-soborno que cumplió la norma y fortaleció nuestra cultura organizacional en torno a la ética y la transparencia.</strong>",
+    linkedinUrl: "https://www.linkedin.com/in/mark-bartch-49909217a/",
   },
 ];
 
@@ -125,7 +130,18 @@ export const Testimonials = () => {
                     className="pl-2 md:pl-3 lg:pl-4 basis-[85vw] sm:basis-[380px] md:basis-[400px] lg:basis-[420px] py-3"
                   >
                     <div className="transition-all duration-300 hover:scale-[1.02] h-full">
-                      <Card className="h-full flex flex-col bg-white dark:bg-card/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-500">
+                      <Card className="h-full flex flex-col bg-white dark:bg-card/80 border border-border/40 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-500 relative">
+                        {testimonial.linkedinUrl && (
+                          <a
+                            href={testimonial.linkedinUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center text-[#0077b5] hover:text-[#0077b5] hover:bg-[#0077b5]/10 transition-all duration-300 rounded-full"
+                            aria-label={`LinkedIn profile of ${testimonial.name}`}
+                          >
+                            <Linkedin size="16" />
+                          </a>
+                        )}
                         <CardHeader className="pb-2 pt-5 px-5">
                           <div className="flex flex-row items-center gap-4">
                             <Avatar className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full ring-2 ring-primary/10 shadow-sm">
