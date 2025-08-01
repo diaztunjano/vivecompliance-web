@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { About } from "./components/About";
 // import { Cta } from "./components/Cta";
 import { FAQ } from "./components/FAQ";
@@ -14,21 +13,21 @@ import { Sponsors } from "./components/Sponsors";
 import { Team } from "./components/Team";
 import { Testimonials } from "./components/Testimonials";
 import { Features } from "./components/Features";
-import { PopUp } from "./components/PopUp";
+// import { PopUp } from "./components/PopUp";
 
 import "./App.css";
 
 function App() {
-  const [showPopUp, setShowPopUp] = useState(false);
+  // const [showPopUp, setShowPopUp] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShowPopUp(true), 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setShowPopUp(true), 3000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return (
     <>
-      <PopUp open={showPopUp} onOpenChange={setShowPopUp} />
+      {/* <PopUp open={showPopUp} onOpenChange={setShowPopUp} /> */}
       <Navbar />
       <Hero />
       <Sponsors />
