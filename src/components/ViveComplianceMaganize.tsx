@@ -30,7 +30,10 @@ export const ViveComplianceMagazine = () => {
               {/* Efecto de fondo más sutil */}
               <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary/3 rounded-full blur-3xl"></div>
               <div className="h-full">
-                <SubstackFeed substackUrl="yudytunjano.substack.com" />
+                <SubstackFeed
+                  embedId="75814209912"
+                  substackUrl="yudytunjano.substack.com"
+                />
               </div>
             </div>
           </div>

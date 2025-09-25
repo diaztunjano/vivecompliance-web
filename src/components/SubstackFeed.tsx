@@ -1,75 +1,86 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from "react";
 import { Button } from "./ui/button";
 
+const SUPASCRIBE_SCRIPT_SRC = "https://js.supascribe.com/v1/loader/vei9PtPxtThilZBNwcwu0afJjPk1.js";
+
 interface SubstackFeedProps {
+  embedId: string;
   substackUrl: string;
-  postsCount?: number;
-  layout?: 'right' | 'left';
+  ctaLabel?: string;
 }
 
 declare global {
   interface Window {
-    SubstackFeedWidget?: {
-      substackUrl: string;
-      posts: number;
-      layout: 'right' | 'left';
-      colors: {
-        primary: string;
-        secondary: string;
-        background: string;
-      };
+    Supascribe?: {
+      refreshAll?: (root?: HTMLElement) => void;
+      createWidgetFromDOM?: (embedId: string, element: HTMLElement, type: string) => void;
     };
   }
 }
 
 export const SubstackFeed = ({
+  embedId,
   substackUrl,
-  postsCount = 3,
-  layout = 'right',
+  ctaLabel = "Leer más publicaciones",
 }: SubstackFeedProps) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
-    // Configure the widget
-    window.SubstackFeedWidget = {
-      substackUrl,
-      posts: postsCount,
-      layout,
-      colors: {
-        // Color primario más suave para títulos y enlaces
-        primary: "#0B2447",
-        // Color secundario más sutil para mejor legibilidad
-        secondary: "#4A5568",
-        // Color de fondo ligeramente tintado para mejor integración
-        background: "#FAFAFA",
-      },
+    const container = containerRef.current;
+    if (!container) {
+      return;
+    }
+
+    const initializeEmbed = () => {
+      if (!container) {
+        return;
+      }
+
+      if (window.Supascribe?.createWidgetFromDOM) {
+        window.Supascribe.createWidgetFromDOM(embedId, container, "feed");
+        return;
+      }
+
+      window.Supascribe?.refreshAll?.(container);
     };
 
-    // Load the Substack script
-    const script = document.createElement('script');
-    script.src = 'https://substackapi.com/embeds/feed.js';
-    script.async = true;
-    document.body.appendChild(script);
+    if (window.Supascribe) {
+      initializeEmbed();
+    }
 
-    // Cleanup
+    const script = document.querySelector<HTMLScriptElement>(
+      `script[src="${SUPASCRIBE_SCRIPT_SRC}"]`
+    );
+
+    if (!window.Supascribe && script) {
+      script.addEventListener("load", initializeEmbed);
+
+      return () => {
+        script.removeEventListener("load", initializeEmbed);
+        container.replaceChildren();
+      };
+    }
+
     return () => {
-      document.body.removeChild(script);
-      delete window.SubstackFeedWidget;
+      container.replaceChildren();
     };
-  }, [substackUrl, postsCount, layout]);
+  }, [embedId]);
 
   return (
     <>
-      <div id="substack-feed-embed" />
+      <div
+        ref={containerRef}
+        data-supascribe-embed-id={embedId}
+        data-supascribe-feed=""
+      />
       <div className="mt-8 text-center">
-        <Button
-          asChild
-          size="lg"
-        >
+        <Button asChild size="lg">
           <a
             href={`https://${substackUrl}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Leer más publicaciones
+            {ctaLabel}
           </a>
         </Button>
       </div>
