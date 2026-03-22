@@ -27,7 +27,7 @@ export const Footer = () => {
                 Vive Compliance
               </a>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Somos una empresa especializada en cumplimiento autorizada por la Superintendencia de Sujetos No Financieros de Panamá (Resolución S-EC-024-2023) que impacta organizaciones públicas y privadas.
+                Somos una empresa especializada en cumplimiento autorizada por la Superintendencia de Sujetos No Financieros de Panamá (Resolución S-EC-003-2026 del 15 de enero de 2026) que impacta organizaciones públicas y privadas.
               </p>
             </div>
 
