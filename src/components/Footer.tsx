@@ -1,4 +1,4 @@
-import { Linkedin, Music2, BookOpen } from "lucide-react";
+import { Linkedin, Music2, BookOpen, FileText } from "lucide-react";
 import { SiFacebook, SiYoutube } from '@icons-pack/react-simple-icons';
 import { Button } from "./ui/button";
 
@@ -99,6 +99,22 @@ export const Footer = () => {
                     >
                       <Music2 className="h-4 w-4" />
                       Escuchar Podcast
+                    </a>
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    className="w-full sm:w-auto hover:bg-primary hover:text-primary-foreground transition-colors"
+                    asChild
+                  >
+                    <a
+                      href="/politica-cumplimiento-integridad-2026.pdf"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      <FileText className="h-4 w-4" />
+                      Política de Cumplimiento
                     </a>
                   </Button>
                 </div>
